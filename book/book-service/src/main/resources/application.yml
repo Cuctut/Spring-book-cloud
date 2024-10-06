@@ -12,4 +12,4 @@ management:
       # 启用返回日志文件内容的端点
       enabled: true
       # 外部日志文件路径
-      external-file: logs/novel-book-service.log
+      external-file: logs/book-service.log
