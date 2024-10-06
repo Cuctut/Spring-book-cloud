@@ -21,6 +21,7 @@
         <module>book</module>
         <module>user</module>
         <module>author</module>
+        <module>news</module>
     </modules>
 
     <properties>
