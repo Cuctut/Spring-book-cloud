@@ -1,0 +1,17 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: 117.72.77.186:8848
+        file-extension: yml
+        extension-configs[0]:
+          data-id: spring-book-mysql.yml
+          refresh: true
+        extension-configs[1]:
+          data-id: spring-book-redis.yml
+          refresh: true
+        extension-configs[2]:
+          data-id: spring-book-rabbitmq.yml
+          refresh: true
+
+
