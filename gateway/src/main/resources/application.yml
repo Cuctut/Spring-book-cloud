@@ -1,0 +1,64 @@
+server:
+  port: 8888
+spring:
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 117.72.77.186:8848
+    gateway:
+      routes:
+        - id: home-front
+          uri: lb://home-service
+          predicates:
+            - Path=/api/front/home/**
+        - id: news-front
+          uri: lb://news-service
+          predicates:
+            - Path=/api/front/news/**
+        - id: user-front
+          uri: lb://user-service
+          predicates:
+            - Path=/api/front/user/**
+        - id: book-front
+          uri: lb://book-service
+          predicates:
+            - Path=/api/front/book/**
+        - id: author
+          uri: lb://author-service
+          predicates:
+            - Path=/api/author/**
+#        - id: search-front
+#          uri: lb://search-service
+#          predicates:
+#            - Path=/api/front/search/**
+#        - id: resource-front
+#          uri: lb://resource-service
+#          predicates:
+#            - Path=/api/front/resource/**
+#        - id: resource-image
+#          uri: lb://resource-service
+#          predicates:
+#            - Path=/image/**
+
+# Actuator 端点管理
+management:
+  # 端点公开配置
+  endpoints:
+    # 通过 HTTP 公开的 Web 端点
+    web:
+      exposure:
+        # 公开所有的 Web 端点
+        include: "*"
+  # 端点启用配置
+  endpoint:
+    logfile:
+      # 启用返回日志文件内容的端点
+      enabled: true
+      # 外部日志文件路径
+      external-file: logs/gateway.log
+  info:
+    env:
+      # 公开所有以 info. 开头的环境属性
+      enabled: true

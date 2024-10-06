@@ -23,6 +23,7 @@
         <module>author</module>
         <module>news</module>
         <module>home</module>
+        <module>gateway</module>
     </modules>
 
     <properties>

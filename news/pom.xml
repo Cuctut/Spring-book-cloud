@@ -8,7 +8,7 @@
     </parent>
 
     <artifactId>news</artifactId>
-    <name> news 微服务</name>
+    <name>news</name>
     <packaging>pom</packaging>
 
     <modules>
