@@ -22,6 +22,7 @@
         <module>user</module>
         <module>author</module>
         <module>news</module>
+        <module>home</module>
     </modules>
 
     <properties>
