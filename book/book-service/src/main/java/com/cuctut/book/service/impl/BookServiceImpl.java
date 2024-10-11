@@ -23,7 +23,6 @@ import com.cuctut.common.resp.PageRespDto;
 import com.cuctut.common.resp.RestResp;
 import com.cuctut.config.annotation.Key;
 import com.cuctut.config.annotation.Lock;
-import com.cuctut.config.exception.BusinessException;
 import com.cuctut.user.dto.resp.UserInfoRespDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +30,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -390,6 +390,38 @@ public class BookServiceImpl implements BookService {
                                 .authorName(v.getAuthorName())
                                 .picUrl(v.getPicUrl())
                                 .bookDesc(v.getBookDesc())
+                                .build()
+                ).toList()
+        );
+    }
+
+    @Override
+    public RestResp<List<BookEsRespDto>> listNextEsBooks(Long maxBookId) {
+        LambdaQueryWrapper<BookInfo> query = new LambdaQueryWrapper<BookInfo>()
+                .orderByAsc(BookInfo::getId)
+                .gt(BookInfo::getId, maxBookId)
+                .gt(BookInfo::getWordCount, 0)
+                .last(DatabaseConsts.SqlEnum.LIMIT_30.getSql());
+        return RestResp.ok(
+                bookInfoMapper.selectList(query).stream().map(
+                        bookInfo -> BookEsRespDto.builder()
+                                .id(bookInfo.getId())
+                                .categoryId(bookInfo.getCategoryId())
+                                .categoryName(bookInfo.getCategoryName())
+                                .bookDesc(bookInfo.getBookDesc())
+                                .bookName(bookInfo.getBookName())
+                                .authorId(bookInfo.getAuthorId())
+                                .authorName(bookInfo.getAuthorName())
+                                .bookStatus(bookInfo.getBookStatus())
+                                .commentCount(bookInfo.getCommentCount())
+                                .isVip(bookInfo.getIsVip())
+                                .score(bookInfo.getScore())
+                                .visitCount(bookInfo.getVisitCount())
+                                .wordCount(bookInfo.getWordCount())
+                                .workDirection(bookInfo.getWorkDirection())
+                                .lastChapterId(bookInfo.getLastChapterId())
+                                .lastChapterName(bookInfo.getLastChapterName())
+                                .lastChapterUpdateTime(bookInfo.getLastChapterUpdateTime().toInstant(ZoneOffset.ofHours(8)).toEpochMilli())
                                 .build()
                 ).toList()
         );

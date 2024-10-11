@@ -112,14 +112,16 @@ public class InnerBookController {
         return bookService.listBookInfoByIds(bookIds);
     }
 
-    // /**
-    //  * 查询下一批保存到 ES 中的小说列表
-    //  */
-    // @Operation(summary = "查询下一批保存到 ES 中的小说列表")
-    // @PostMapping("listNextEsBooks")
-    // RestResp<List<BookEsRespDto>> listNextEsBooks(@Parameter(description = "已查询的最大小说ID") @RequestBody Long maxBookId) {
-    //     return bookService.listNextEsBooks(maxBookId);
-    // }
-    //
+    /**
+     * 查询下一批保存到 ES 中的小说列表
+     */
+    @Operation(summary = "查询下一批保存到 ES 中的小说列表")
+    @PostMapping("listNextEsBooks")
+    RestResp<List<BookEsRespDto>> listNextEsBooks(
+            @Parameter(description = "已查询的最大小说ID") @RequestBody Long maxBookId
+    ) {
+        return bookService.listNextEsBooks(maxBookId);
+    }
+
 
 }

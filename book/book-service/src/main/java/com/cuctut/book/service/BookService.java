@@ -185,4 +185,12 @@ public interface BookService {
      * @return 小说信息列表
      */
     RestResp<List<BookInfoRespDto>> listBookInfoByIds(List<Long> bookIds);
+
+    /**
+     * 查询下一批保存到 ES 中的小说列表
+     *
+     * @param maxBookId 已查询的最大小说ID
+     * @return 小说列表
+     */
+    RestResp<List<BookEsRespDto>> listNextEsBooks(Long maxBookId);
 }
